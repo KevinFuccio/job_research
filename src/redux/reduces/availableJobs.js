@@ -8,7 +8,7 @@ export const avaliableJobs = (state= initialState,action) =>{
         case AVAILABLE_JOBS:
             return{
                 ...state,
-                availablejobs: [action.payload]
+                availablejobs: action.payload
             }
             default:
                 return state

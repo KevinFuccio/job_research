@@ -45,11 +45,11 @@ const MainSearch = () => {
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs.map((e) => (
-            e.map((jobData)=>(
+          {jobs.map((jobData) => (
+           
               <Job key={jobData._id} data={jobData} />
-            ))
-          ))}
+            )
+          )}
         </Col>
       </Row>
     </Container>

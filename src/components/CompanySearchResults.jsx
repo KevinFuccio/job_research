@@ -23,11 +23,11 @@ const CompanySearchResults = () => {
     <Container>
       <Row>
         <Col>
-        {jobs.map((e) => (
-            e.map((jobData)=>(
+        {jobs.map((jobData) => (
+            
               <Job key={jobData._id} data={jobData} />
-            ))
-          ))}
+            )
+          )}
           <Link to="/"><Button></Button></Link>
         </Col>
       </Row>
