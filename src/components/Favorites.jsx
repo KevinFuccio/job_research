@@ -1,9 +1,10 @@
 import { Col, Row, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeToFavoriteAction } from "../redux/actions";
 
 const Favorites = () => {
-  const JobsContent = useSelector((state) => state.favoriteJobs.content);
+  const JobsContent = useSelector((state) => state.Favjobs.favouriteJobs);
   const dispatch = useDispatch();
   return (
     <>
@@ -22,10 +23,7 @@ const Favorites = () => {
                 <div>
                   <Button
                     onClick={() => {
-                      dispatch({
-                        type: "REMOVE_TO_FAVORITE",
-                        payload: index,
-                      });
+                      dispatch(removeToFavoriteAction(index));
                     }}
                   >
                     X
