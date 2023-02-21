@@ -1,38 +1,40 @@
-import { useEffect, useState } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import Job from './Job'
-import { jobSearch } from '../redux/actions'
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Job from "./Job";
+import { jobSearch } from "../redux/actions";
 
 const MainSearch = () => {
-  const [query, setQuery] = useState('')
-  const jobs = useSelector((state) => state.jobs.availablejobs)
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const [query, setQuery] = useState("");
+  const jobs = useSelector((state) => state.jobs.availablejobs);
+  const loading = useSelector((state) => state.jobs.loading);
 
-  const baseEndpoint = 'https://strive-benchmark.herokuapp.com/api/jobs?search='
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const baseEndpoint =
+    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
   const handleChange = (e) => {
-    setQuery(e.target.value)
-  }
+    setQuery(e.target.value);
+  };
 
-  
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(jobSearch(baseEndpoint,query,'&limit=20'))
-  }
+    e.preventDefault();
+    dispatch(jobSearch(baseEndpoint, query, "&limit=20"));
+  };
  
-
-
   return (
     <Container>
       <Row>
         <Col xs={10} className="mx-auto my-3">
-          <h1>Remote Jobs Search <Button onClick={()=> navigate('/favorites')}>Preferiti</Button></h1>
-          
-        <Col>
-        </Col>
+          <h1>
+            Remote Jobs Search{" "}
+            <Button onClick={() => navigate("/favorites")}>Preferiti</Button>
+          </h1>
+
+          <Col></Col>
         </Col>
         <Col xs={10} className="mx-auto">
           <Form onSubmit={handleSubmit}>
@@ -44,16 +46,18 @@ const MainSearch = () => {
             />
           </Form>
         </Col>
-        <Col xs={10} className="mx-auto mb-5">
-          {jobs.map((jobData) => (
-           
+        {loading ? (
+          <Spinner animation="border" variant="primary" className="mr-2" />
+        ) : (
+          <Col xs={10} className="mx-auto mb-5">
+            {jobs.map((jobData) => (
               <Job key={jobData._id} data={jobData} />
-            )
-          )}
-        </Col>
+            ))}
+          </Col>
+        )}
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MainSearch
+export default MainSearch;
